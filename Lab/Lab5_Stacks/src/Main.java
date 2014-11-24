@@ -10,7 +10,7 @@ public class Main
     public static void main(String[] args)
     {
         // Create a string that holds the expression.
-        String expression = "100+80/2*25/5";
+        String expression = "100+80-40/2*25/5";
 
         // Instantiate an object of the ExpressionEvaluator class.
         ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
