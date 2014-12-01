@@ -8,8 +8,8 @@
 public interface StackInterface < T >
 {
     /** Adds a new entry to the top of this stack.
-     @param newEntry an object to be added to the stack */
-    public void push (T newEntry);
+     @param element an object to be added to the stack */
+    public void push (T element);
 
     /** Removes and returns this stacks top entry.
      @return either the object at the top of the stack or, if the
@@ -27,5 +27,8 @@ public interface StackInterface < T >
 
     /** Removes all entries from this stack */
     public void clear ();
+
+    // Returs the size of the stack.
+    public int size();
 
 } // end StackInterface

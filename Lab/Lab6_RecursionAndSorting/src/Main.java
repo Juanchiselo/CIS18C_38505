@@ -15,17 +15,31 @@ public class Main
 
         VectorStack<Integer> stack = new VectorStack<Integer>();
 
-        for(int i = 0; i < 100; i++)
-        {
-            stack.push(randomGenerator.nextInt(100));
-        }
+        for(int i = 0; i < 10; i++)
+            stack.push(randomGenerator.nextInt(10));
 
-        for(int i = 0; i < 100; i++)
+        stack.nonRecursiveBubbleSort("Descending");
+
+        System.out.println("Sorted stack using Non Recursive Bubble Sort:");
+        for(int i = 0; i < 10; i++)
         {
             System.out.println(i + ") " + stack.peek());
             stack.pop();
         }
 
-        stack.nonRecursiveBubbleSort();
+        for(int i = 0; i < 10; i++)
+            stack.push(randomGenerator.nextInt(10));
+
+        stack.nonRecursiveSelectionSort("Descending");
+
+        System.out.println("Sorted stack using Non Recursive Selection Sort:");
+        for(int i = 0; i < 10; i++)
+        {
+            System.out.println(i + ") " + stack.peek());
+            stack.pop();
+        }
+
+
+
     }
 }
