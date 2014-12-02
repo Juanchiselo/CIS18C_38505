@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class VectorStack <T> implements StackInterface <T>
 {
-    private Vector <T> stack;
+    private Vector<T> stack;
 
     private static final int DEFAULT_INITIAL_CAPACITY = 50;
 
@@ -102,27 +102,26 @@ public class VectorStack <T> implements StackInterface <T>
 
 //    public <T extends Comparable<T>> void recursiveBubbleSort()
 //    {
-//        recursiveBubbleSort(stack, 0);
+//        recursiveBubbleSort(stack, 0, stack.size() - 1);
 //    }
 //
-//    public <T extends Comparable<T>> void recursiveBubbleSort(Vector<T> a, int firstIndex)
+//    public <T extends Comparable<T>> void recursiveBubbleSort(Vector<T> vector, int firstIndex, int lastIndex)
 //    {
-//        T smallest = (T) stack.elementAt(0);
-//
-//        int smallestIndex = firstIndex;
-//
-//        for(int i=firstIndex; i<stack.size(); i++)
+//        if(firstIndex < lastIndex && lastIndex > 0)
 //        {
-//            if(elementAt(i) < element smallest)
+//            T elementA = vector.get(firstIndex);
+//            T elementB = vector.get(firstIndex + 1);
+//
+//            if(elementA.compareTo(elementB) > 0)
 //            {
-//
+//                vector.set(firstIndex, elementB);
+//                vector.set(firstIndex + 1, elementA);
 //            }
-//            // new smallest found
-//        }
+//            if(firstIndex == lastIndex - 1)
+//                recursiveBubbleSort(vector, 0, lastIndex - 1);
 //
-//        // swap smallest
-//        if(firstIndex<a.size())
-//            recursiveBubbleSort(a,  firstIndex+1);
+//            recursiveBubbleSort(vector, firstIndex + 1, lastIndex);
+//        }
 //    }
 
     public <T extends Comparable<T>> void nonRecursiveSelectionSort(String order)
@@ -156,13 +155,32 @@ public class VectorStack <T> implements StackInterface <T>
         Collections.reverse(stack);
     }
 
-    public void recursiveSelectionSort()
-    {
-        recursiveSelectionSort(stack, 0);
-    }
-
-    public void recursiveSelectionSort(Vector<T> a, int firstIndex)
-    {
-
-    }
+//    public void recursiveSelectionSort()
+//    {
+//        recursiveSelectionSort(stack, 0, stack.size() - 1);
+//    }
+//
+//    public <T extends Comparable<T>>
+//    void recursiveSelectionSort(Vector<T> vector, int firstIndex, int lastIndex)
+//    {
+//        if(firstIndex < lastIndex && lastIndex > 0)
+//        {
+//            int index = firstIndex;
+//            T smallest = vector.get(firstIndex);
+//
+//            for(int i = firstIndex + 1; i < vector.size(); i++)
+//            {
+//                if(vector.get(i).compareTo(smallest) < 0)
+//                {
+//                    smallest = vector.get(i);
+//                    index = i;
+//                }
+//            }
+//
+//            vector.set(index, vector.get(firstIndex));
+//            vector.set(firstIndex, smallest);
+//
+//            recursiveSelectionSort(vector, firstIndex + 1, lastIndex);
+//        }
+//    }
 }
