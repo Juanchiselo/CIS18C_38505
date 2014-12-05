@@ -8,7 +8,7 @@
 import java.util.Vector;
 import java.util.Collections;
 
-public class VectorStack <T> implements StackInterface <T>
+public class VectorStack <T extends Comparable<T>> implements StackInterface <T>
 {
     private Vector<T> stack;
 
@@ -64,26 +64,19 @@ public class VectorStack <T> implements StackInterface <T>
         return stack.size();
     }
 
-    public <T extends Comparable<T>> void nonRecursiveBubbleSort(String order)
+    public void nonRecursiveBubbleSort(String order)
     {
         for(int i = 0; i < stack.size(); i++)
         {
             for(int j = 1; j < stack.size() - i; j++)
             {
-                // Why doesn't this work?
-                // T elementA = stack.get(j);
-                T elementA = (T) stack.get(j - 1);
-                T elementB = (T) stack.get(j);
+                T elementA = stack.get(j - 1);
+                T elementB = stack.get(j);
 
                 if(elementA.compareTo(elementB) > 0 && order.equals("Ascending"))
                 {
-                    // Why doesn't this work?
-                    //stack.set(j - 1, elementB);
-                    //stack.set(j, elementA);
-
-                    // Temporary fix.
-                    stack.add(j - 1, stack.get(j));
-                    stack.remove(j + 1);
+                    stack.set(j - 1, elementB);
+                    stack.set(j, elementA);
                 }
 
                 if(elementA.compareTo(elementB) < 0 && order.equals("Descending"))
@@ -100,31 +93,37 @@ public class VectorStack <T> implements StackInterface <T>
         Collections.reverse(stack);
     }
 
-//    public <T extends Comparable<T>> void recursiveBubbleSort()
-//    {
-//        recursiveBubbleSort(stack, 0, stack.size() - 1);
-//    }
-//
-//    public <T extends Comparable<T>> void recursiveBubbleSort(Vector<T> vector, int firstIndex, int lastIndex)
-//    {
-//        if(firstIndex < lastIndex && lastIndex > 0)
-//        {
-//            T elementA = vector.get(firstIndex);
-//            T elementB = vector.get(firstIndex + 1);
-//
-//            if(elementA.compareTo(elementB) > 0)
-//            {
-//                vector.set(firstIndex, elementB);
-//                vector.set(firstIndex + 1, elementA);
-//            }
-//            if(firstIndex == lastIndex - 1)
-//                recursiveBubbleSort(vector, 0, lastIndex - 1);
-//
-//            recursiveBubbleSort(vector, firstIndex + 1, lastIndex);
-//        }
-//    }
+    public void recursiveBubbleSort()
+    {
+        recursiveBubbleSort(stack, 0, stack.size() - 1);
 
-    public <T extends Comparable<T>> void nonRecursiveSelectionSort(String order)
+        // Reverses the order of the vector elements so that
+        // it conforms to stack constraints.
+        // FIFO (First In, First Out).
+        Collections.reverse(stack);
+    }
+
+    public void recursiveBubbleSort(Vector<T> vector, int firstIndex, int lastIndex)
+    {
+        if(firstIndex < lastIndex && lastIndex > 0)
+        {
+            T elementA = vector.get(firstIndex);
+            T elementB = vector.get(firstIndex + 1);
+
+            if(elementA.compareTo(elementB) > 0)
+            {
+                vector.set(firstIndex, elementB);
+                vector.set(firstIndex + 1, elementA);
+            }
+
+            if(firstIndex == lastIndex - 1)
+                recursiveBubbleSort(vector, 0, lastIndex - 1);
+
+            recursiveBubbleSort(vector, firstIndex + 1, lastIndex);
+        }
+    }
+
+    public void nonRecursiveSelectionSort(String order)
     {
         int index;
         int j;
@@ -155,32 +154,36 @@ public class VectorStack <T> implements StackInterface <T>
         Collections.reverse(stack);
     }
 
-//    public void recursiveSelectionSort()
-//    {
-//        recursiveSelectionSort(stack, 0, stack.size() - 1);
-//    }
-//
-//    public <T extends Comparable<T>>
-//    void recursiveSelectionSort(Vector<T> vector, int firstIndex, int lastIndex)
-//    {
-//        if(firstIndex < lastIndex && lastIndex > 0)
-//        {
-//            int index = firstIndex;
-//            T smallest = vector.get(firstIndex);
-//
-//            for(int i = firstIndex + 1; i < vector.size(); i++)
-//            {
-//                if(vector.get(i).compareTo(smallest) < 0)
-//                {
-//                    smallest = vector.get(i);
-//                    index = i;
-//                }
-//            }
-//
-//            vector.set(index, vector.get(firstIndex));
-//            vector.set(firstIndex, smallest);
-//
-//            recursiveSelectionSort(vector, firstIndex + 1, lastIndex);
-//        }
-//    }
+    public void recursiveSelectionSort()
+    {
+        recursiveSelectionSort(stack, 0, stack.size() - 1);
+
+        // Reverses the order of the vector elements so that
+        // it conforms to stack constraints.
+        // FIFO (First In, First Out).
+        Collections.reverse(stack);
+    }
+
+    public void recursiveSelectionSort(Vector<T> vector, int firstIndex, int lastIndex)
+    {
+        if(firstIndex < lastIndex && lastIndex > 0)
+        {
+            int index = firstIndex;
+            T smallest = vector.get(firstIndex);
+
+            for(int i = firstIndex + 1; i < vector.size(); i++)
+            {
+                if(vector.get(i).compareTo(smallest) < 0)
+                {
+                    smallest = vector.get(i);
+                    index = i;
+                }
+            }
+
+            vector.set(index, vector.get(firstIndex));
+            vector.set(firstIndex, smallest);
+
+            recursiveSelectionSort(vector, firstIndex + 1, lastIndex);
+        }
+    }
 }

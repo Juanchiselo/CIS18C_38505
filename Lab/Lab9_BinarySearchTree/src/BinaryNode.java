@@ -5,20 +5,52 @@
  * Description:
  */
 
-// Basic node stored in unbalanced binary search trees
-// Note that this class is not accessible outside
-// of this package.
+// Basic node stored in unbalanced binary search trees.
 class BinaryNode<T>
 {
-    // Data; accessible by other package routines
-    T element;  // The data in the node
-    BinaryNode<T> left;     // Left child
-    BinaryNode<T> right;    // Right child
+    // element variable store the data in the node.
+    private T element;
+
+    // leftChild node is the leftChild child of the node.
+    private BinaryNode<T> leftChild;
+
+    // rightChild node is the rightChild child of the node.
+    private BinaryNode<T> rightChild;    // Right child
 
     // Constructor
-    BinaryNode(T element)
+    public BinaryNode(T element)
     {
         this.element = element;
-        left = right = null;
+        leftChild = null;
+        rightChild = null;
+    }
+
+    public void setElement(T element)
+    {
+        this.element = element;
+    }
+
+    public void setLeftChild(BinaryNode<T> leftChild)
+    {
+        this.leftChild = leftChild;
+    }
+
+    public void setRightChild(BinaryNode<T> rightChild)
+    {
+        this.rightChild = rightChild;
+    }
+
+    public T getElement()
+    {
+        return element;
+    }
+
+    public BinaryNode<T> getLeftChild()
+    {
+        return leftChild;
+    }
+
+    public BinaryNode<T> getRightChild() {
+        return rightChild;
     }
 }
