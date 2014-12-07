@@ -2,67 +2,51 @@
  * Jose Sandoval
  * CIS-18C: Java Programming
  * November 2, 2014
- * Description:
- */
-
-// BinarySearchTree class
-//
-// CONSTRUCTION: with no initializer
-//
-// ******************PUBLIC OPERATIONS*********************
-// void insert( x )       --> Insert x
-// void remove( x )       --> Remove x
-// void removeMin( )      --> Remove minimum item
-// Comparable find( x )   --> Return item that matches x
-// Comparable findMin( )  --> Return smallest item
-// Comparable findMax( )  --> Return largest item
-// boolean isEmpty( )     --> Return true if empty; else false
-// void makeEmpty( )      --> Remove all items
-// ******************ERRORS********************************
-// Exceptions are thrown by insert, remove, and removeMin if warranted
-
-/**
- * Implements an unbalanced binary search tree.
- * Note that all "matching" is based on the compareTo method.
+ * Description: A generic binary search tree class.
+ *              Implements an unbalanced binary
+ *              search tree.
  */
 
 public class BinarySearchTree<T extends Comparable<? super T>>
 {
-    // The tree's root.
-    private BinaryNode<T> root;
+    // The root of the tree.
+    protected BinaryNode<T> root;
 
-    // Default constructor.
+    /**
+     * The constructor.
+     * Sets the root to null.
+     */
     public BinarySearchTree()
     {
         root = null;
     }
 
     /**
-     * Inserts an item into the tree.
-     * @param item - the item to insert.
-     * @throws DuplicateItemException if x is already present.
+     * Public insert method.
+     * Inserts the passed element into the tree.
+     * @param element - The element to be inserted.
      */
-    public void insert(T item)
+    public void insert(T element)
     {
         if(isEmpty())
-            root = new BinaryNode<T>(item);
+            root = new BinaryNode<T>(element);
         else
-            root = insert(item, root);
+            root = insert(root, element);
     }
 
     /**
-     * Remove from the tree.
-     * @param element the item to remove.
-     * @throws ItemNotFoundException if element is not found.
+     * Public remove method.
+     * Removes the passed element from the tree.
+     * @param element - The item to be removed.
      */
     public void remove(T element)
     {
-        root = remove(element, root);
+        root = remove(root, element);
     }
 
     /**
-     * Remove minimum item from the tree.
-     * @throws ItemNotFoundException if tree is empty.
+     * Public removeMin method.
+     * Removes the minimum element from the tree.
      */
     public void removeMin()
     {
@@ -70,8 +54,10 @@ public class BinarySearchTree<T extends Comparable<? super T>>
     }
 
     /**
-     * Find the smallest item in the tree.
-     * @return smallest item or null if empty.
+     * Public findMin method.
+     * Finds the minimum element in the tree.
+     * @return - Returns the minimum element
+     *           or null if the tree is empty.
      */
     public T findMin()
     {
@@ -79,8 +65,10 @@ public class BinarySearchTree<T extends Comparable<? super T>>
     }
 
     /**
-     * Find the largest item in the tree.
-     * @return the largest item or null if empty.
+     * Public findMax method.
+     * Finds the maximum element in the tree.
+     * @return - Returns the maximum element
+     *           or null if the tree is emtpy.
      */
     public T findMax()
     {
@@ -88,17 +76,20 @@ public class BinarySearchTree<T extends Comparable<? super T>>
     }
 
     /**
-     * Find an item in the tree.
-     * @param element the item to search for.
-     * @return the matching item or null if not found.
+     * Public find method.
+     * Finds the passed element in the tree.
+     * @param element - The element to search for.
+     * @return - Returns the matching element or
+     *           null if the element was not found.
      */
     public T find(T element)
     {
-        return elementAt(find(element, root));
+        return elementAt(find(root, element));
     }
 
     /**
-     * Make the tree logically empty.
+     * Public makeEmpty method.
+     * Makes the tree logically empty.
      */
     public void makeEmpty()
     {
@@ -106,19 +97,90 @@ public class BinarySearchTree<T extends Comparable<? super T>>
     }
 
     /**
-     * Test if the tree is logically empty.
-     * @return true if empty, false otherwise.
+     * Public isEmpty method.
+     * Checks if the tree is logically empty.
+     * @return - Returns true if the tree is empty,
+     *           false if the tree is not empty.
      */
     public boolean isEmpty()
     {
         return root == null;
     }
 
-    public boolean search(T target)
+    /**
+     * Public contains method.
+     * Checks if the tree contains the passed element.
+     * @param element - The element to search for.
+     * @return - Returns true if the element is in the
+     *           tree, false if it is not in the tree.
+     */
+    public boolean contains(T element)
     {
-        return search(root, target);
+        return (find(element) != null);
     }
 
+    /**
+     * Public search method.
+     * Searches the tree for the passed element.
+     * @param element - The element to search for.
+     * @return - Returns true if the element is in the
+     *           tree, false if it is not in the tree.
+     */
+    public boolean search(T element)
+    {
+        return search(root, element);
+    }
+
+    /**
+     * Public traverseInOrder method.
+     * Traverses the tree in order and prints out
+     * a list of the elements in the tree.
+     */
+    public void traverseInOrder()
+    {
+        traverseInOrder(root);
+    }
+
+    /**
+     * Public traversePreOrder method.
+     * Traverses the tree in PreOrder and prints
+     * out a list of the elements in the tree.
+     */
+    public void traversePreOrder()
+    {
+        traversePreOrder(root);
+    }
+
+    /**
+     * Public traversePostOrder method.
+     * Traverses the tree in PostOrder and prints
+     * out a list of the elements in the tree.
+     */
+    public void traversePostOrder()
+    {
+        traversePostOrder(root);
+    }
+
+    /**
+     * Public print method.
+     * Prints out a formatted display of the tree.
+     * Indentation is used to show nodes that are
+     * at the same level.
+     */
+    public void print()
+    {
+        print(root, 0);
+    }
+
+    /**
+     * Public list method.
+     * Prints out an alphabetical list of the items
+     * in the tree.
+     */
+    public void list()
+    {
+        traverseInOrder();
+    }
 
 
     //====================================================//
@@ -126,23 +188,25 @@ public class BinarySearchTree<T extends Comparable<? super T>>
     //====================================================//
 
     /**
-     * Internal method to get element field.
-     * @param node the node.
-     * @return the element field or null if node is null.
+     * Internal elementAt method.
+     * Gets the element from the passed node.
+     * @param node - The node to get the element from.
+     * @return - Returns the node's element
+     *           or null if the node is null.
      */
     private T elementAt(BinaryNode<T> node)
     {
-        return node == null ? null : node.getElement();
+        return (node == null) ? null : node.getElement();
     }
 
     /**
-     * Internal method to insert into a subtree.
-     * @param element the element to insert.
-     * @param root the root that roots the tree.
-     * @return the new root.
-     * @throws DuplicateItemException if element is already present.
+     * Internal insert method.
+     * Inserts the passed element into a subtree.
+     * @param element - The element to be inserted.
+     * @param root - The node that roots the tree.
+     * @return - Returns the new root.
      */
-    protected BinaryNode<T> insert(T element, BinaryNode<T> root)
+    protected BinaryNode<T> insert(BinaryNode<T> root, T element)
     {
         int comparison = element.compareTo(root.getElement());
 
@@ -150,7 +214,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>
         if(comparison < 0)
         {
             if(root.getLeftChild() != null)
-                insert(element, root.getLeftChild());
+                insert(root.getLeftChild(), element);
             else
                 root.setLeftChild(new BinaryNode<T>(element));
         }
@@ -159,150 +223,158 @@ public class BinarySearchTree<T extends Comparable<? super T>>
         else if(comparison > 0)
         {
             if(root.getRightChild() != null)
-                insert(element, root.getRightChild());
+                insert(root.getRightChild(), element);
             else
                 root.setRightChild(new BinaryNode<T>(element));
         }
 
-        // Same case.
+        // Duplicate case.
         else
-            root.setElement(element);
+            System.out.println("ERROR: Element already exists.");
 
         return root;
     }
 
     /**
-     * Internal method to remove from a subtree.
-     * @param element the item to remove.
-     * @param root the node that roots the tree.
-     * @return the new root.
-     * @throws ItemNotFoundException if element is not found.
+     * Internal remove method.
+     * Removes the passed element from a subtree.
+     * @param element - The element to be removed.
+     * @param root - The node that roots the tree.
+     * @return - Returns the root.
      */
-    protected BinaryNode<T> remove(T element, BinaryNode<T> root)
+    protected BinaryNode<T> remove(BinaryNode<T> root, T element)
+    {
+        if(root != null)
+        {
+            int comparison = element.compareTo(root.getElement());
+
+            // Left child case.
+            if(comparison < 0)
+                root.setLeftChild(remove(root.getLeftChild(), element));
+
+            // Right child case.
+            else if(comparison > 0)
+                root.setRightChild(remove(root.getRightChild(), element));
+
+            // Two children case.
+            else if(root.getLeftChild() != null && root.getRightChild() != null)
+            {
+                root.setElement(findMin(root.getRightChild()).getElement());
+                root.setRightChild(removeMin(root.getRightChild()));
+            }
+
+            // Node found case.
+            else
+            {
+                root = (root.getLeftChild() != null)
+                        ? root.getLeftChild() : root.getRightChild();
+            }
+        }
+        else
+            System.out.println("ERROR: Element was not found.");
+
+        return root;
+    }
+
+    /**
+     * Internal removeMin method.
+     * Removes the minimum element from a subtree.
+     * @param root - The node that roots the tree.
+     * @return - Returns the new root.
+     */
+    protected BinaryNode<T> removeMin(BinaryNode<T> root)
     {
         if(root == null)
-            System.out.println("ItemNot Found Exception: "+ element.toString( ) );
-
-        int comparison = element.compareTo(root.getElement());
-
-        // Left child case.
-        if(comparison < 0)
-            root.setLeftChild(remove(element, root.getLeftChild()));
-
-        // Right child case.
-        else if(comparison > 0)
-            root.setRightChild(remove(element, root.getRightChild()));
-
-        // Two children case.
-        else if(root.getLeftChild() != null && root.getRightChild() != null)
-        {
-            root.setElement(findMin(root.getRightChild()).getElement());
-            root.setRightChild(removeMin(root.getRightChild()));
-        }
-
-        // Node found case.
-        else
-        {
-            root = (root.getLeftChild() != null)
-                    ? root.getLeftChild() : root.getRightChild();
-        }
-
-        return root;
-    }
-
-    /**
-     * Internal method to remove minimum item from a subtree.
-     * @param node the node that roots the tree.
-     * @return the new root.
-     * @throws ItemNotFoundException if node is empty.
-     */
-    protected BinaryNode<T> removeMin(BinaryNode<T> node)
-    {
-        if(node == null)
         {
             System.out.println("ItemNotFound Exception: ");
             return null;
         }
-        else if(node.getLeftChild() != null)
+        else if(root.getLeftChild() != null)
         {
-            node.setLeftChild(removeMin(node.getLeftChild()));
-            return node;
+            root.setLeftChild(removeMin(root.getLeftChild()));
+            return root;
         }
 
-        return node.getRightChild();
+        return root.getRightChild();
     }
 
     /**
-     * Internal method to find the smallest item in a subtree.
-     * @param node the node that roots the tree.
-     * @return node containing the smallest item.
+     * Internal findMin method.
+     * Finds the minimum element in a subtree.
+     * @param root - The node that roots the tree.
+     * @return - Returns the node containing the
+     *           minimum element.
      */
-    protected BinaryNode<T> findMin(BinaryNode<T> node)
+    protected BinaryNode<T> findMin(BinaryNode<T> root)
     {
-        if(node != null)
-            while(node.getLeftChild() != null)
-                node = node.getLeftChild();
+        if(root != null)
+            while(root.getLeftChild() != null)
+                root = root.getLeftChild();
 
-        return node;
+        return root;
     }
 
     /**
-     * Internal method to find the largest item in a subtree.
-     * @param node the node that roots the tree.
-     * @return node containing the largest item.
+     * Internal findMax method.
+     * Finds the maximum element in a subtree.
+     * @param root - The node that roots the tree.
+     * @return - Returns the node containing
+     *           the maximum element.
      */
-    private BinaryNode<T> findMax(BinaryNode<T> node)
+    private BinaryNode<T> findMax(BinaryNode<T> root)
     {
-        if(node != null)
-            while(node.getRightChild() != null)
-                node = node.getRightChild();
+        if(root != null)
+            while(root.getRightChild() != null)
+                root = root.getRightChild();
 
-        return node;
+        return root;
     }
 
     /**
-     * Internal method to find an item in a subtree.
-     * @param element is item to search for.
-     * @param node the node that roots the tree.
-     * @return node containing the matched item.
+     * Internal find method.
+     * Finds the passed element in a subtree.
+     * @param element - The element to search for.
+     * @param root - The node that roots the tree.
+     * @return - Returns the node containing
+     *           the element.
      */
-    private BinaryNode<T> find(T element, BinaryNode<T> node)
+    private BinaryNode<T> find(BinaryNode<T> root, T element)
     {
-        while(node != null)
+        while(root != null)
         {
-            int comparison = element.compareTo(node.getElement());
+            int comparison = element.compareTo(root.getElement());
 
             if(comparison < 0)
-                node = node.getLeftChild();
+                root = root.getLeftChild();
             else if(comparison > 0)
-                node = node.getRightChild();
+                root = root.getRightChild();
             else
-                return node;    // Match
+                return root;
         }
 
-        return null;         // Not found
+        return null;
     }
 
-    /** See if the tree contains a given item.
-     * @param target the item to search for
-     * @return true if the item is in the tree
+    /**
+     * Internal search method.
+     * Recursively searches the tree for the
+     * passed element.
+     * @param root - The node that roots the tree.
+     * @param element - The element to search for.
+     * @return - Returns true if the item is in
+     *           the tree, false if it is not in
+     *           the tree.
      */
-    public boolean contains(T target)
+    private boolean search(BinaryNode<T> root, T element)
     {
-        return (find(target) != null);
-    }
-
-    /** Recursively search the tree for the target */
-    private boolean search(BinaryNode<T> node, T target)
-    {
-        if(node != null)
+        if(root != null)
         {
-            int comparison = target.compareTo(node.getElement());
+            int comparison = element.compareTo(root.getElement());
 
             if (comparison < 0)
-                return search(node.getLeftChild(), target);
+                return search(root.getLeftChild(), element);
             else if (comparison > 0)
-                return search(node.getRightChild(), target);
+                return search(root.getRightChild(), element);
             else
             // Item was found.
                 return true;
@@ -312,68 +384,78 @@ public class BinarySearchTree<T extends Comparable<? super T>>
         return false;
     }
 
-    /** Show an alphabetical list of the items in the tree,
-     * one item per line.     */
-    public void list()
+    /**
+     * Internal traverseInOrder method.
+     * Recursively traverses the tree in order and
+     * prints out a list of the elements.
+     * @param root - The node that roots the tree.
+     */
+    private void traverseInOrder(BinaryNode<T> root)
     {
         if(root != null)
         {
-            T element;
-
-            do
-            {
-                element = findMin();
-                System.out.println(element);
-                removeMin();
-            }while(element != findMax());
+            traverseInOrder(root.getLeftChild());
+            System.out.println(root.getElement().toString());
+            traverseInOrder(root.getRightChild());
         }
     }
 
-    public void traverseInOrder()
-    {
-        traverseInOrder(root);
-    }
-
-    /** Recursive in-order traversal of the tree, printing each node */
-    private void traverseInOrder(BinaryNode<T> node)
-    {
-        if(node != null)
-        {
-            traverseInOrder(node.getLeftChild());
-            System.out.println(node.getElement());
-            traverseInOrder(node.getRightChild());
-        }
-    }
-
-    /** Print a formatted display of the tree.  */
-    public void print()
-    {
-        traverseInOrder();
-    }
-
-    public void traversePreOrder()
-    {
-        traversePreOrder(root, 0);
-    }
-
-    /** Recursive pre-order traversal of the tree, printing each node
-     * indented an amount corresponding to its level in the tree.
+    /**
+     * Internal traversePreOrder method.
+     * Recursively traverses the tree in PreOrder
+     * and prints out a list of the elements.
+     * @param root - The node that roots the tree.
      */
-    private void traversePreOrder(BinaryNode<T> node, int indent)
+    private void traversePreOrder(BinaryNode<T> root)
     {
-        if(node != null)
+        if(root != null)
+        {
+            System.out.println(root.getElement().toString());
+            traversePreOrder(root.getLeftChild());
+            traversePreOrder(root.getRightChild());
+        }
+    }
+
+    /**
+     * Internal traversePostOrder method.
+     * Recursively traverses the tree in PostOrder
+     * and prints out a list of the elements.
+     * @param root - The node that roots the tree.
+     */
+    private void traversePostOrder(BinaryNode<T> root)
+    {
+        if(root != null)
+        {
+            traversePostOrder(root.getLeftChild());
+            traversePostOrder(root.getRightChild());
+            System.out.println(root.getElement().toString());
+        }
+    }
+
+    /**
+     * Internal print method.
+     * Prints out a formatted display of the tree.
+     * Indentation is used to show nodes that are
+     * at the same level.
+     * @param root - The node that roots the tree.
+     * @param indent
+     */
+    private void print(BinaryNode<T> root, int indent)
+    {
+        if(root != null)
         {
             String indentation = "";
 
             for(int i = 0; i < indent; i++)
                 indentation += " ";
 
-            System.out.println(indentation + node.getElement());
+            System.out.println(indentation
+                    + root.getElement().toString());
 
             indent += 5;
 
-            traversePreOrder(node.getLeftChild(), indent);
-            traversePreOrder(node.getRightChild(), indent);
+            print(root.getLeftChild(), indent);
+            print(root.getRightChild(), indent);
         }
     }
 }

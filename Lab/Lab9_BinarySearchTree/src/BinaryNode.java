@@ -2,22 +2,29 @@
  * Jose Sandoval
  * CIS-18C: Java Programming
  * November 2, 2014
- * Description:
+ * Description: Generic BinaryNode class.
+ *              These are the basic nodes stored
+ *              in an unbalanced binary search tree.
  */
 
-// Basic node stored in unbalanced binary search trees.
 class BinaryNode<T>
 {
-    // element variable store the data in the node.
+    // The data in the node.
     private T element;
 
-    // leftChild node is the leftChild child of the node.
+    // The left child of the node.
     private BinaryNode<T> leftChild;
 
-    // rightChild node is the rightChild child of the node.
-    private BinaryNode<T> rightChild;    // Right child
+    // The right child of the node.
+    private BinaryNode<T> rightChild;
 
-    // Constructor
+
+    /**
+     * The constructor.
+     * Sets the node's element to the element passed to it
+     * when the node was instantiated.
+     * @param element - The element to be stored inside the node.
+     */
     public BinaryNode(T element)
     {
         this.element = element;
@@ -25,32 +32,65 @@ class BinaryNode<T>
         rightChild = null;
     }
 
+    /**
+     * Element setter method.
+     * Sets the node's element to the element passed to it.
+     * @param element - The element to be stored inside the node.
+     */
     public void setElement(T element)
     {
         this.element = element;
     }
 
+    /**
+     * Left child setter method.
+     * Sets the node's left child to the node passed to it.
+     * @param leftChild - The node that will be the left child
+     *                    of this node.
+     */
     public void setLeftChild(BinaryNode<T> leftChild)
     {
         this.leftChild = leftChild;
     }
 
+    /**
+     * Right child setter method.
+     * Sets the node's right child to the node passed to it.
+     * @param rightChild - The node that will be the right child
+     *                     of this node.
+     */
     public void setRightChild(BinaryNode<T> rightChild)
     {
         this.rightChild = rightChild;
     }
 
+    /**
+     * Element getter method.
+     * Gets the node's element.
+     * @return - Returns the element stored inside the node.
+     */
     public T getElement()
     {
         return element;
     }
 
+    /**
+     * Left child getter method.
+     * Gets the node's left child.
+     * @return - Returns the left child of the node.
+     */
     public BinaryNode<T> getLeftChild()
     {
         return leftChild;
     }
 
-    public BinaryNode<T> getRightChild() {
+    /**
+     * Right child getter method.
+     * Gets the node's right child.
+     * @return - Returns the right child of the node.
+     */
+    public BinaryNode<T> getRightChild()
+    {
         return rightChild;
     }
 }

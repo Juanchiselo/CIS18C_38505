@@ -2,60 +2,89 @@
  * Jose Sandoval
  * CIS-18C: Java Programming
  * November 2, 2014
- * Description:
+ * Description: Test program for an unbalanced
+ *              Binary Search Tree.
  */
 
 public class Main
 {
     public static void main(String[] args)
     {
-        BinarySearchTree<Integer> tree = new BinarySearchTree<Integer>( );
+        // Instantiate a binary search tree of strings.
+        BinarySearchTree<String> stringTree = new BinarySearchTree<String>();
 
-        final int NUMS = 4000;
-        final int GAP  =   37;
+        // Insert elements into the tree.
+        System.out.println("Inserting elements: \n" +
+                "E, D, N, K, S, F, L, W, H, A, J");
+        stringTree.insert("E");
+        stringTree.insert("D");
+        stringTree.insert("N");
+        stringTree.insert("K");
+        stringTree.insert("S");
+        stringTree.insert("F");
+        stringTree.insert("L");
+        stringTree.insert("W");
+        stringTree.insert("H");
+        stringTree.insert("A");
+        stringTree.insert("J");
 
-//        tree.insert(15);
-//        tree.insert(9);
-//        tree.insert(7);
-//        tree.insert(23);
-//        tree.insert(25);
-//        tree.insert(2);
-//        tree.insert(6);
-//        tree.insert(17);
-//        tree.insert(24);
-//        tree.insert(27);
-//        tree.insert(300);
-//        tree.insert(5000);
-//
-//        tree.traverseInOrder();
-//        System.out.println();
-//
-//        tree.traversePreOrder();
-//
-//        if(tree.isEmpty())
-//            System.out.println("Tree is empty");
-//        else
-//            System.out.println("Tree is not empty");
+        // Find minimum element in the tree.
+        System.out.println("\nMinimum Element: " + stringTree.findMin());
 
+        // Find maximum element in the tree.
+        System.out.println("Maximum Element: " + stringTree.findMax());
 
-        for(int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-            tree.insert(i);
+        // List elements in the tree.
+        System.out.println("\nElements in the tree:");
+        stringTree.list();
 
-        for( int i = 1; i < NUMS; i += 2 )
-            tree.remove(i);
+        // Remove minimum element from the tree.
+        System.out.println("\nRemoving minimum element from the tree.");
+        stringTree.removeMin();
 
+        // Find element in the tree.
+        System.out.println("\nChecking if A was removed.");
+        if(stringTree.contains("A"))
+            System.out.println(stringTree.find("A") + " is in the tree.");
+        else
+            System.out.println("Element A not found.");
 
-        if( tree.findMin( ) != 2 || tree.findMax( ) != NUMS - 2 )
-            System.out.println( "FindMin or FindMax error!" );
+        // Remove an element.
+        System.out.println("\nRemoving J");
+        stringTree.remove("J");
 
-        for( int i = 2; i < NUMS; i += 2 )
-            if( tree.find( i ) != i )
-                System.out.println( "Find error1!" );
+        // Search for an element.
+        System.out.println("\nChecking if J was removed.");
+        if(stringTree.search("J"))
+            System.out.println("Element J is in the tree.");
+        else
+            System.out.println("Element J is not in the tree.");
 
-        for( int i = 1; i < NUMS; i += 2 )
-            if( tree.find( i ) != null )
-                System.out.println( "Find error2!" );
+        // Traverse the tree InOrder.
+        System.out.println("\nTraversing the tree InOrder:");
+        stringTree.traverseInOrder();
 
-        tree.traversePreOrder();
+        // Traverse the tree PreOrder.
+        System.out.println("\nTraversing the tree PreOrder:");
+        stringTree.traversePreOrder();
+
+        // Traverse the tree PostOrder.
+        System.out.printf("\nTraversing the tree PostOrder:");
+        stringTree.traversePostOrder();
+
+        // Print the tree in a formatted display.
+        System.out.println("\nPrinting the tree in a formatted display:");
+        stringTree.print();
+
+        // Empty the tree.
+        System.out.println("\nEmptying the tree.");
+        stringTree.makeEmpty();
+
+        // Check if the tree is empty.
+        System.out.println("\nChecking if the tree is empty.");
+        if(stringTree.isEmpty())
+            System.out.println("Tree is empty.");
+        else
+            System.out.println("Tree is not empty.");
     }
 }
